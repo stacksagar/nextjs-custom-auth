@@ -1,7 +1,7 @@
 import User from "@/database/models/User";
 import { verifySession } from "@/lib/auth.actions";
 import { SESSION } from "@/types";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
   const cookie = req.headers.get("cookie");
