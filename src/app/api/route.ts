@@ -1,3 +1,6 @@
+import { redirect } from "next/navigation";
+
 export function GET() {
-  return new Response("Continue....");
+  return redirect("/");
+  return new Response("Invalid path");
 }

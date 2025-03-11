@@ -1,4 +1,3 @@
-import { USER } from "@/types";
 import axiosReq from "./axiosReq";
 import { NextResponse } from "next/server";
 import { isRoleFulfilled } from "./roles";
@@ -15,7 +14,7 @@ export async function getUpdatedUser(cookie?: string) {
     const {
       data: { user },
     } = await axiosReq.get<{ user: USER }>(
-      process.env.DOMAIN + "/api/auth-user",
+      process.env.DOMAIN + "/api/public/auth-user",
       {
         headers: {
           cookie,

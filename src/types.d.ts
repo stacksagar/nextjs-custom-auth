@@ -1,4 +1,4 @@
-export interface Common {
+interface Common {
   id?: number;
   createdAt?: string;
   updatedAt?: string;

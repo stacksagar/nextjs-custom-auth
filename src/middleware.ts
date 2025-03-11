@@ -3,11 +3,15 @@ import { cookies } from "next/headers";
 
 /* NOTE: The "level" represents access power. Higher levels can access routes available to lower levels.
 For example, level 3 has access to routes for levels 2 and 1, and level 4 can access routes for levels 3, 2, and 1 */
+
 export const roles = {
   user: { level: 1, routes: ["/profile"] },
-  secretary: { level: 2, routes: ["/dashboard", "/secretary"] },
-  manager: { level: 3, routes: ["/manager"] },
-  admin: { level: 4, routes: ["/admin"] },
+  secretary: {
+    level: 2,
+    routes: ["/dashboard", "/secretary", "/api/secretary"],
+  },
+  manager: { level: 3, routes: ["/manager", "/api/manager"] },
+  admin: { level: 4, routes: ["/admin", "/api/admin"] },
 };
 
 const registrationRoutes = ["/login", "/signup"];
@@ -57,7 +61,15 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/profile/:path*", "/dashboard/:path*", "/login", "/signup"],
+  matcher: [
+    "/",
+    "/profile/:path*",
+    "/dashboard/:path*",
+    "/login",
+    "/signup",
+    "/api",
+    "/api/:path*",
+  ],
 };
 /*
 :: DO YOU HAVE ANY CONFUSION WITH "config & matcher"?
