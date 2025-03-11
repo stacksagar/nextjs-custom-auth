@@ -11,17 +11,24 @@ export const redirectLogin = () => redirect(host + "/login");
 export const redirectHome = () => redirect(host + "/");
 
 export async function getUpdatedUser(cookie?: string) {
-  const {
-    data: { user },
-  } = await axiosReq.get<{ user: USER }>("/api/auth-user", {
-    headers: {
-      cookie,
-    },
-  });
-  return user;
+  try {
+    const {
+      data: { user },
+    } = await axiosReq.get<{ user: USER }>(
+      process.env.DOMAIN + "/api/auth-user",
+      {
+        headers: {
+          cookie,
+        },
+      }
+    );
+    return user;
+  } catch (error: any) {
+    console.log("GET USER ERROR:: ", error);
+  }
 }
 
-export function isAdmin(user: USER) {
+export function isAdmin(user?: USER) {
   if (isRoleFulfilled(user?.role, "admin")) {
     NextResponse.next();
   } else if (isRoleFulfilled(user?.role, "secretary")) {
@@ -31,7 +38,7 @@ export function isAdmin(user: USER) {
   }
 }
 
-export function isManager(user: USER) {
+export function isManager(user?: USER) {
   if (isRoleFulfilled(user?.role, "manager")) {
     NextResponse.next();
   } else if (isRoleFulfilled(user?.role, "secretary")) {
@@ -40,14 +47,14 @@ export function isManager(user: USER) {
     return redirectHome();
   }
 }
-export function isSecretary(user: USER) {
+export function isSecretary(user?: USER) {
   if (isRoleFulfilled(user?.role, "secretary")) {
     NextResponse.next();
   } else {
     return redirectHome();
   }
 }
-export function isRegiesteredUser(user: USER) {
+export function isRegiesteredUser(user?: USER) {
   if (isRoleFulfilled(user?.role, "user")) {
     NextResponse.next();
   } else {

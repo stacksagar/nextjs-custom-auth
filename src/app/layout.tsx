@@ -19,7 +19,7 @@ export default async function RootLayout({
 }>) {
   const session = await getSession();
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={false}>
       <body className={`antialiased`}>
         <Header role={session?.role} />
         <main className="min-h-screen">{children}</main>
